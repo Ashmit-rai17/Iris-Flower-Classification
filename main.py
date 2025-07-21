@@ -1,40 +1,21 @@
 import pandas as pd
-
-# Define column names for the Iris dataset
-columns = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'species']
-
-# Load the data
-iris = pd.read_csv('data/iris.data', names=columns)
-
-# Drop any empty rows (if present)
-iris = iris.dropna()
-
-# Save as CSV for easier use later
-iris.to_csv('data/iris.csv', index=False)
-
-print('Iris dataset loaded and saved as data/iris.csv')
-
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-# Basic statistics
-print('\nBasic statistics:')
+columns = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'species']
+iris = pd.read_csv('data/iris.data', names=columns)
+iris = iris.dropna()
+iris.to_csv('data/iris.csv', index=False)
 print(iris.describe())
-
-# Pairplot
 sns.pairplot(iris, hue='species')
-plt.savefig('data/eda_pairplot.png')
+plt.savefig('pairplot.png')
 plt.close()
-
-# Correlation heatmap
 plt.figure(figsize=(8, 6))
 sns.heatmap(iris.corr(numeric_only=True), annot=True, cmap='coolwarm')
 plt.title('Feature Correlation Heatmap')
-plt.savefig('data/eda_corr_heatmap.png')
+plt.savefig('heatmap.png')
 plt.close()
-
-print('EDA visualizations saved to data/eda_pairplot.png and data/eda_corr_heatmap.png')
 
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
